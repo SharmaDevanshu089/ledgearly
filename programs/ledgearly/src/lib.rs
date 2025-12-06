@@ -14,3 +14,14 @@ pub mod ledgearly {
 
 #[derive(Accounts)]
 pub struct Initialize {}
+
+#[derive(AnchorSerialize, AnchorDeserialize, Clone)]
+pub struct Expense {
+    pub name: String,
+    pub cost: u64,
+}
+
+#[account]
+pub struct ExpenseList {
+    pub expenses: Vec<Expense>,
+}
