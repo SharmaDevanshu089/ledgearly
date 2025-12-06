@@ -37,4 +37,21 @@ pub struct ExpenseList {
     seeds = [b"expense_list", user.key().as_ref()],
     bump
 )]
+#[derive(Accounts)]
+pub struct InitializeList<'info> {
+    #[account(
+        init,
+        payer = user,
+        space = 600,
+        seeds = [b"expense_list", user.key().as_ref()],
+        bump
+    )]
+    pub expense_list: Account<'info, ExpenseList>,
+
+    #[account(mut)]
+    pub user: Signer<'info>,
+
+    pub system_program: Program<'info, System>,
+}
+
 pub expense_list: Account<'info, ExpenseList>,
