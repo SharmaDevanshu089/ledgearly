@@ -68,10 +68,22 @@ pub struct InitializeList<'info> {
 
     pub system_program: Program<'info, System>,
 }
+#[derive(Accounts)]
+pub struct AddExpense<'info> {
+    #[account(
+        mut,
+        seeds = [b"expense_list", user.key().as_ref()],
+        bump
+    )]
+    pub expense_list: Account<'info, ExpenseList>,
+
+    pub user: Signer<'info>,
+}
+
 #[error_code]
 pub enum ErrorCode {
     #[msg("You have reached the maximum of 10 expenses")]
     ListFull,
 }
 
-pub expense_list: Account<'info, ExpenseList>,
+// pub expense_list: Account<'info, ExpenseList>,
